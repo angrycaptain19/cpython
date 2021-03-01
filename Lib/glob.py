@@ -34,10 +34,7 @@ def iglob(pathname, *, root_dir=None, dir_fd=None, recursive=False):
     zero or more directories and subdirectories.
     """
     sys.audit("glob.glob", pathname, recursive)
-    if root_dir is not None:
-        root_dir = os.fspath(root_dir)
-    else:
-        root_dir = pathname[:0]
+    root_dir = os.fspath(root_dir) if root_dir is not None else pathname[:0]
     it = _iglob(pathname, root_dir, dir_fd, recursive, False)
     if not pathname or recursive and _isrecursive(pathname[:2]):
         try:
